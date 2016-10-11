@@ -49,7 +49,7 @@ class WxClient
     public function send($url, $gh_id='gh_8510652496c4', $openid='oD8xWwg-GJiFi9RLEllEzR1bwJ9A', $MsgType='text', $Event='subscribe', $EventKey = 'MyEventKey', $Content='content')
     {
         global $reqStr;
-        $msg = $this->getDemoRequestXml($gh_id, $openid, $MsgType, $Event, $EventKey);
+        $msg = $this->getDemoRequestXml($gh_id, $openid, $MsgType, $Event, $EventKey, $Content);
         $reqStr = $msg;
         self::log($msg);
 
@@ -99,7 +99,7 @@ class WxClient
     $MsgType: 'text','image','location','link','event','music','news','voice','video','shortvideo'
     $Event:'subscribe','unsubscribe','SCAN','LOCATION','CLICK','VIEW'    
     */
-    public function getDemoRequestXml($gh_id='gh_id', $openid='openid', $MsgType='text', $Event='subscribe', $EventKey = 'MyEventKey') 
+    public function getDemoRequestXml($gh_id, $openid, $MsgType, $Event, $EventKey, $Content) 
     {
         $time = time();
         switch ($MsgType) 
@@ -109,9 +109,9 @@ class WxClient
 <xml>
 <ToUserName><![CDATA[$gh_id]]></ToUserName>
 <FromUserName><![CDATA[$openid]]></FromUserName>
-<CreateTime>1402545118</CreateTime>
+<CreateTime>$time</CreateTime>
 <MsgType><![CDATA[text]]></MsgType>
-<Content><![CDATA[.debug]]></Content>
+<Content><![CDATA[$Content]]></Content>
 <MsgId>6023885413174756692</MsgId>
 </xml>
 EOD;
@@ -122,7 +122,7 @@ EOD;
 <xml>
 <ToUserName><![CDATA[$gh_id]]></ToUserName>
 <FromUserName><![CDATA[$openid]]></FromUserName>
-<CreateTime>1402716823</CreateTime>
+<CreateTime>$time</CreateTime>
 <MsgType><![CDATA[image]]></MsgType>
 <PicUrl><![CDATA[http://mmbiz.qpic.cn/mmbiz/sfPia9sGialANxsfkib9L3pLolJcbrtXkkPFxRUNFeTry12vibeDHOhIibvDmVquhPIiboSbv0tm6GRO7UU7tkAQEXTA/0]]></PicUrl>
 <MsgId>6024622880534320141</MsgId>
@@ -136,7 +136,7 @@ EOD;
 <xml>
 <ToUserName><![CDATA[$gh_id]]></ToUserName>
 <FromUserName><![CDATA[$openid]]></FromUserName>
-<CreateTime>1402716680</CreateTime>
+<CreateTime>$time</CreateTime>
 <MsgType><![CDATA[location]]></MsgType>
 <Location_X>30.512074</Location_X>
 <Location_Y>114.315926</Location_Y>
@@ -152,7 +152,7 @@ EOD;
 <xml>
 <ToUserName><![CDATA[$gh_id]]></ToUserName>
 <FromUserName><![CDATA[$openid]]></FromUserName>
-<CreateTime>1351776360</CreateTime>
+<CreateTime>$time</CreateTime>
 <MsgType><![CDATA[link]]></MsgType>
 <Title><![CDATA[title]]></Title>
 <Description><![CDATA[desc]]></Description>
@@ -167,7 +167,7 @@ EOD;
 <xml>
 <ToUserName><![CDATA[$gh_id]]></ToUserName>
 <FromUserName><![CDATA[$openid]]></FromUserName>
-<CreateTime>1402716535</CreateTime>
+<CreateTime>$time</CreateTime>
 <MsgType><![CDATA[voice]]></MsgType>
 <MediaId><![CDATA[bFvd4vTiEb89CpfKVg8AsKJOBNSU0m3kZtL2pxnx4mSgQMvqo9EDHNKAyU6ZsUre]]></MediaId>
 <Format><![CDATA[amr]]></Format>
@@ -182,7 +182,7 @@ EOD;
 <xml>
 <ToUserName><![CDATA[$gh_id]]></ToUserName>
 <FromUserName><![CDATA[$openid]]></FromUserName>
-<CreateTime>1402717029</CreateTime>
+<CreateTime>$time</CreateTime>
 <MsgType><![CDATA[video]]></MsgType>
 <MediaId><![CDATA[MP_AE2Ofqe-YPzwHjgsI8zm5ScOz5nh34JfnfTsY52UimfvFaOssz_exTtIxnzCQ]]></MediaId>
 <ThumbMediaId><![CDATA[X6bSlsb_sVIZnsDFJHsA36KI5XIdZIhAt0i6r1aPKCYdlFQzjpJXp-eHmBRGfBMx]]></ThumbMediaId>
@@ -199,7 +199,7 @@ EOD;
 <xml>
 <ToUserName><![CDATA[$gh_id]]></ToUserName>
 <FromUserName><![CDATA[$openid]]></FromUserName>
-<CreateTime>123456789</CreateTime>
+<CreateTime>$time</CreateTime>
 <MsgType><![CDATA[event]]></MsgType>
 <Event><![CDATA[subscribe]]></Event>
 </xml>
@@ -211,7 +211,7 @@ EOD;
 <xml>
 <ToUserName><![CDATA[$gh_id]]></ToUserName>
 <FromUserName><![CDATA[$openid]]></FromUserName>
-<CreateTime>123456789</CreateTime>
+<CreateTime>$time</CreateTime>
 <MsgType><![CDATA[event]]></MsgType>
 <Event><![CDATA[unsubscribe]]></Event>
 </xml>                
@@ -223,7 +223,7 @@ EOD;
 <xml>
 <ToUserName><![CDATA[$gh_id]]></ToUserName>
 <FromUserName><![CDATA[$openid]]></FromUserName>
-<CreateTime>123456789</CreateTime>
+<CreateTime>$time</CreateTime>
 <MsgType><![CDATA[event]]></MsgType>
 <Event><![CDATA[SCAN]]></Event>
 <EventKey><![CDATA[$EventKey]]></EventKey>
@@ -237,7 +237,7 @@ EOD;
 <xml>
 <ToUserName><![CDATA[$gh_id]]></ToUserName>
 <FromUserName><![CDATA[fromUser]]></FromUserName>
-<CreateTime>123456789</CreateTime>
+<CreateTime>$time</CreateTime>
 <MsgType><![CDATA[event]]></MsgType>
 <Event><![CDATA[LOCATION]]></Event>
 <Latitude>23.137466</Latitude>
@@ -252,7 +252,7 @@ EOD;
 <xml>
 <ToUserName><![CDATA[$gh_id]]></ToUserName>
 <FromUserName><![CDATA[$openid]]></FromUserName>
-<CreateTime>123456789</CreateTime>
+<CreateTime>$time</CreateTime>
 <MsgType><![CDATA[event]]></MsgType>
 <Event><![CDATA[CLICK]]></Event>
 <EventKey><![CDATA[$EventKey]]></EventKey>
@@ -265,7 +265,7 @@ EOD;
 <xml>
 <ToUserName><![CDATA[$gh_id]]></ToUserName>
 <FromUserName><![CDATA[$openid]]></FromUserName>
-<CreateTime>123456789</CreateTime>
+<CreateTime>$time</CreateTime>
 <MsgType><![CDATA[event]]></MsgType>
 <Event><![CDATA[VIEW]]></Event>
 <EventKey><![CDATA[$EventKey]]></EventKey>
@@ -276,7 +276,7 @@ EOD;
                 break;
                 
             default:
-                die('Invalid Demo MsgType');
+                die('Invalid MsgType');
                 break;                
         }
         return $xml;
@@ -325,47 +325,45 @@ EOD;
         </div>
         </div>
 
-        <div class="row">
-            <div class="form-group col-sm-6">
-                <label for="MsgType" class="h4">MsgType</label>
-                <select class="form-control" name="MsgType" id="MsgType">
-                    <option value="text">text</option>
-                    <option value="event">event</option>
-                    <option value="image">image</option>
-                    <option value="location">location</option>
-                    <option value="link">link</option>
-                    <option value="music">music</option>
-                    <option value="news">news</option>
-                    <option value="voice">voice</option>
-                    <option value="video">video</option>
-                    <option value="shortvideo">shortvideo</option>
-                </select>
-                <div class="help-block with-errors"></div>
-            </div>
-
-            <div class="form-group col-sm-6">
-                <label for="Event" class="h4">Event</label>
-                <select class="form-control" name="Event" id="Event">
-                    <option value="subscribe">subscribe</option>
-                    <option value="unsubscribe">unsubscribe</option>
-                    <option value="SCAN">SCAN</option>
-                    <option value="LOCATION">LOCATION</option>
-                    <option value="CLICK">CLICK</option>
-                    <option value="VIEW">VIEW</option>
-                </select>
-                <div class="help-block with-errors"></div>
-            </div>
+        <div class="form-group">
+            <label for="MsgType" class="h4">MsgType</label>
+            <select class="form-control" name="MsgType" id="MsgType">
+                <option value="text">text</option>
+                <option value="event">event</option>
+                <option value="image">image</option>
+                <option value="location">location</option>
+                <option value="link">link</option>
+                <option value="music">music</option>
+                <option value="news">news</option>
+                <option value="voice">voice</option>
+                <option value="video">video</option>
+                <option value="shortvideo">shortvideo</option>
+            </select>
+            <div class="help-block with-errors"></div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" id="div_Event">
+            <label for="Event" class="h4">Event</label>
+            <select class="form-control" name="Event" id="Event">
+                <option value="subscribe">subscribe</option>
+                <option value="unsubscribe">unsubscribe</option>
+                <option value="SCAN">SCAN</option>
+                <option value="LOCATION">LOCATION</option>
+                <option value="CLICK">CLICK</option>
+                <option value="VIEW">VIEW</option>
+            </select>
+            <div class="help-block with-errors"></div>
+        </div>
+
+        <div class="form-group" id="div_EventKey">
             <label for="EventKey" class="h4">EventKey</label>
             <input type="text" class="form-control" name="EventKey" id="EventKey" placeholder="Enter EventKey">
             <div class="help-block with-errors"></div>
         </div>
 
-        <div class="form-group">
-            <label for="Content" class="h4">Content</label>
-            <textarea name="Content" id="Content" class="form-control" rows="2" placeholder="Enter your Content" required></textarea>
+        <div class="form-group" id="div_Content">
+            <label for="Content" class="h4" id="label_Content">Content</label>
+            <textarea name="Content" id="Content" class="form-control" rows="2" placeholder="Enter your Content"></textarea>
             <div class="help-block with-errors"></div>
         </div>
 
@@ -380,12 +378,12 @@ EOD;
 <div class="col-sm-4">
     <div class="well" style="margin-top: 10%;">
         <h3>请求</h3>
-        <div style="height:300px;">
+        <div style="height:260px;">
             <pre><?php print_r($reqArr); ?></pre>
         </div>
         
         <h3>响应</h3>
-        <div style="height:300px;">
+        <div style="height:260px;">
             <pre><?php print_r($respArr); ?></pre>
         </div>
     </div>
@@ -398,4 +396,55 @@ EOD;
 <!--
 <script type="text/javascript" src="js/validator.min.js"></script>
 -->
+<script>
+$("select").change(function () 
+{
+    var MsgType = $("#MsgType").val();
+    var Event = $("#Event").val();
+
+    $('#div_Content').show();    
+    $('#div_Event').show();    
+    $('#div_EventKey').show();    
+
+    switch (MsgType) {
+      case "text":
+        $('#div_Event').hide();    
+        $('#div_EventKey').hide();    
+        break;
+      case "event":
+        switch (Event) {
+          case "subscribe":
+          case "unsubscribe":
+            $('#div_Content').hide();    
+            $('#div_EventKey').hide();    
+            break;
+          case "SCAN":
+            $("#label_Content").text('TICKET');
+            break;
+          case "LOCATION":
+            break;
+          case "CLICK":
+          case "VIEW":
+            $('#div_Content').hide();    
+            break;
+          default:
+            alert("Invalid Event:" + Event);
+        }
+        break;
+      case "image":
+        break;
+      case "news":
+        break;
+      case "location":
+      case "link":
+      case "music":
+      case "voice":
+      case "shortvideo":
+      case "video":
+        break;
+      default:
+        alert("Invalid MsgType:" + MsgType);
+    }
+}).change();
+</script>
 </html>
